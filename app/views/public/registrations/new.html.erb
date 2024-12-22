@@ -4,20 +4,56 @@
   <%= render "public/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :性 %><br />
+    <%= f.text_field :first_name ,autofocus: true%>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :性カナ %><br />
+    <%= f.text_field :first_name_kana %>
+  </div>
+
+  <div class="field">
+    <%= f.label :名 %><br />
+    <%= f.text_field :last_name%>
+  </div>
+
+  <div class="field">
+    <%= f.label :名カナ %><br />
+    <%= f.text_field :last_name_kana%>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :メールアドレス %><br />
+     <%= f.email_field :email,  autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :住所 %><br />
+    <%= f.text_area :address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :郵便番号 %><br />
+    <%= f.text_field :postal_code %>
+  </div>
+
+  <div class="field">
+    <%= f.label :電話番号 %><br />
+    <%= f.text_field :telephone_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :パスワード %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em>(<%= @minimum_password_length %> 文字以上)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :パスワード再確認用 %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
