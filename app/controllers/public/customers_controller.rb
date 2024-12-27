@@ -1,15 +1,20 @@
 class Public::CustomersController < ApplicationController
-  
+
   def show
-  end 
-  
+  end
+
   def edit
-  end 
-  
+  end
+
   def update
-  end 
+  end
 
   def withdraw
-  end 
-  
+    @customer = current_customer
+    @customer.update(is_active: false)
+    reset_session
+    flash[:notice] = "退会処理を実行いたしました"
+    redirect_to root_path
+  end
+
 end
