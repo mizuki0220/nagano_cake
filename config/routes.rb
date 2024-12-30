@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :cart_items
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
 
   namespace :admin do
     get '/' => 'homes#top'
+    resources :genres, only: [:index, :edit, :create, :update]
   end
 
   scope module: :public do
