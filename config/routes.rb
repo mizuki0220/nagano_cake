@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/' => 'homes#top'
     resources :genres, only: [:index, :edit, :create, :update]
+    resources :items, only: [:index, :new, :create, :show, :update, :edit]
   end
 
   scope module: :public do
@@ -29,8 +30,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :cart_items, only: [:index, :create, :update, :destroy]
-    resources :cart_items do
+    resources :cart_items, only: [:index, :create, :update, :destroy] do
       collection do
         delete 'destroy_all'
       end
