@@ -1,8 +1,8 @@
 class Admin::ItemsController < ApplicationController
   layout 'admin'
 
-
   def index
+    @items = Item.all
   end
 
   def new
@@ -29,4 +29,10 @@ class Admin::ItemsController < ApplicationController
 
   def edit
   end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :introduction, :price, :genre_id, :is_active)
+  end 
 end
