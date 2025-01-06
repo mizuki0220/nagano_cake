@@ -11,19 +11,31 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header>
-      <% if admin_signed_in? %>
-        <li>
-          <%= link_to "商品一覧", admin_items_path %>
-        </li>
-        <li>
-          <%= link_to "ジャンル一覧", admin_genres_path %>
-        </li>
-        <li>
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-        </li>
-      <% end %>
+  <body class="d-flex flex-column vh-100">
+    <header class="border-bottom border-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+        <%= link_to image_tag("NaganoCake_logo.jpg", class:'nav-link text-light', width: '120', height: '90'), "/admin" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+          <% if admin_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "商品一覧", admin_items_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ジャンル一覧", admin_genres_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, type: "button", class: "btn btn-outline-dark ml-3" %>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+        </div>
+      </nav>
     </header>
     <%= yield %>
   </body>

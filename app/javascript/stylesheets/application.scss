@@ -1,1 +1,8 @@
 @use '~bootstrap/scss/bootstrap';
+
+.button_to > input[type="submit"] {
+  border: none;
+  background: none;
+  color: #000;
+  cursor: pointer;
+}

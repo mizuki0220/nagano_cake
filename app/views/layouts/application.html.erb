@@ -11,35 +11,47 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header>
-      <% if customer_signed_in? %>
-      <li>
-        <%= link_to 'マイページ', customers_my_page_path %>
-      </li>
-      <li>
-        <%= link_to '商品一覧', items_path %>
-      </li>
-      <li>
-        <%= link_to 'カート', cart_items_path %>
-      </li>
-      <li>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "About", about_path %>
-      </li>
-      <li>
-        <%= link_to "商品一覧", items_path %>
-      </li>
-      <li>
-        <%= link_to "新規登録", new_customer_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_customer_session_path %>
-      </li>
-    <% end %>
+  <body class="d-flex flex-column vh-100">
+    <header class="border-bottom border-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+        <%= link_to image_tag("NaganoCake_logo.jpg", class:'nav-link text-light', width: '120', height: '90'), "/" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+          <% if customer_signed_in? %>
+            <li class="nav-item">
+              <%= link_to 'マイページ', customers_my_page_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to '商品一覧', items_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'カート', cart_items_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, type: "button", class: "btn btn-outline-dark ml-3" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "About", about_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "商品一覧", items_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "新規登録", new_customer_registration_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログイン", new_customer_session_path, type: "button", class: "btn btn-outline-dark ml-3" %>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+        </div>
+      </nav>
     </header>
     <%= yield %>
   </body>
