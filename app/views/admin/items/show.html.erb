@@ -4,7 +4,7 @@
     <div class="col-12 d-flex flex-nowrap">
     <%= image_tag @item.get_image, size: "400x300" %>
       <div class="col-12">
-      <table>
+      <table class="table-condensed">
         <tr>
           <div class="form-group">
             <th class="">商品名</th>
@@ -32,13 +32,11 @@
         <tr>
         <div class="form-group">
           <th>販売ステータス</th>
-          <td>
-            <% if @item.is_active == true %>
-              <p class="text-success font-weight-bold">販売中</p>
-            <% else %>
-              <p class="text-danger font-weight-bold">販売停止中</p>
-            <% end %>
-          </td>
+          <% if @item.is_active == true %>
+            <td class="text-success font-weight-bold">販売中</td>
+          <% else %>
+            <td class="text-danger font-weight-bold">販売停止中</td>
+          <% end %>
         </div>
         </tr>
       </table>
