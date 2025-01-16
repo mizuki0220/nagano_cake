@@ -25,8 +25,8 @@
         </tr>
         <tr>
           <div class="form-group">
-            <th>税込価格</th>
-            <td><%= @item.price %>円</td>
+            <th>税込価格<br>(税抜価格)</th>
+            <td><%= @item.add_tax_price.to_s(:dalimited) %>円<br>(<%= @item.price %>円)</td>
           </div>
         </tr>
         <tr>
