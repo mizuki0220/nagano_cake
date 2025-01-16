@@ -8,34 +8,34 @@
         <tr>
           <div class="form-group">
             <th class="">商品名</th>
-            <td><%= @item.name %></td>
+            <td class="pl-5"><%= @item.name %></td>
           </div>
         </tr>
         <tr>
           <div class="form-group">
             <th>商品説明</th>
-            <td><%= @item.introduction %></td>
+            <td class="pl-5"><%= @item.introduction %></td>
           </div>
         </tr>
         <tr>
           <div class="form-group">
             <th>ジャンル</th>
-            <td><%= @item.genre.name %></td>
+            <td class="pl-5"><%= @item.genre.name %></td>
           </div>
         </tr>
         <tr>
           <div class="form-group">
             <th>税込価格<br>(税抜価格)</th>
-            <td><%= @item.add_tax_price.to_s(:dalimited) %>円<br>(<%= @item.price %>円)</td>
+            <td class="pl-5"><%= @item.add_tax_price.to_s(:dalimited) %>円<br>(<%= @item.price %>円)</td>
           </div>
         </tr>
         <tr>
         <div class="form-group">
           <th>販売ステータス</th>
           <% if @item.is_active == true %>
-            <td class="text-success font-weight-bold">販売中</td>
+            <td class="text-success font-weight-bold pl-5">販売中</td>
           <% else %>
-            <td class="text-danger font-weight-bold">販売停止中</td>
+            <td class="text-danger font-weight-bold pl-5">販売停止中</td>
           <% end %>
         </div>
         </tr>
