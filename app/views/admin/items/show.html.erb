@@ -1,9 +1,9 @@
-<div class="container px-5 px-sm-0 mt-5">
+<div class="container px-5 px-sm-0 mt-5 mb-5">
   <div class="row">
     <h3 class="bg-secondary text-center mb-5">商品詳細</h3>
     <div class="col-12 d-flex flex-nowrap">
     <%= image_tag @item.get_image, size: "400x300" %>
-      <div class="col-12">
+      <div class="col-8">
       <table class="table-condensed">
         <tr>
           <div class="form-group">
@@ -14,7 +14,7 @@
         <tr>
           <div class="form-group">
             <th>商品説明</th>
-            <td class="pl-5"><%= @item.introduction %></td>
+            <td class="pl-5 text-wrap"><%= @item.introduction %></td>
           </div>
         </tr>
         <tr>
@@ -40,6 +40,7 @@
         </div>
         </tr>
       </table>
+      <%= link_to '編集する', edit_admin_item_path, class:"btn btn-success py-0 text-center" %>
     </div>
   </div>
 </div>
