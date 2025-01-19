@@ -2,7 +2,7 @@
   <div class="row">
     <h3 class="bg-secondary text-center mb-5">商品詳細</h3>
     <div class="col-12 d-flex flex-nowrap">
-    <%= image_tag @item.get_image, size: "400x300" %>
+      <%= image_tag @item.get_image, size: "400x300" %>
       <div class="col-8">
       <table class="table-condensed">
         <tr>
@@ -40,6 +40,7 @@
         </div>
         </tr>
       </table>
+      </div>
       <%= link_to '編集する', edit_admin_item_path, class:"btn btn-success py-0 text-center" %>
     </div>
   </div>

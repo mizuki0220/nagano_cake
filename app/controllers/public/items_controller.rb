@@ -10,6 +10,11 @@ class Public::ItemsController < ApplicationController
     @items_page = Item.page(params[:page])
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
+
   private
 
   def item_params

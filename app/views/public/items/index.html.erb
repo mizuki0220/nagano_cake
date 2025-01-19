@@ -1,18 +1,6 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
-    <div class="col-md-3 mt-5">
-      <div class="card">
-        <div class="card-header">
-          ジャンル検索
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><%= link_to "ケーキ", items_path(genre: 'ケーキ') %></li>
-          <li class="list-group-item"><%= link_to "焼き菓子", items_path(genre: '焼き菓子') %></li>
-          <li class="list-group-item"><%= link_to "プリン", items_path(genre: 'プリン') %></li>
-          <li class="list-group-item"><%= link_to "キャンディー", items_path(genre: 'キャンディー') %></li>
-        </ul>
-      </div>
-    </div>
+    <%= render 'list' %>
     <div class="col-md-8 offset-md-1 mt-5 mb-5">
       <h2>
         <% if @genre %>
