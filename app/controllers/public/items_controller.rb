@@ -1,2 +1,19 @@
 class Public::ItemsController < ApplicationController
+
+  def index
+    if params[:genre]
+     @genre = params[:genre]
+     @items = Item.joins(:item_genre).where(genres: { name: @genre })
+    else
+      @items = Item.all
+    end
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :introduction, :price, :genre_id, :is_active)
+  end
+
+
 end
