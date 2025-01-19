@@ -2,11 +2,12 @@ class Public::ItemsController < ApplicationController
 
   def index
     if params[:genre]
-     @genre = params[:genre]
-     @items = Item.joins(:item_genre).where(genres: { name: @genre })
+      @genre = params[:genre]
+      @items = Item.joins(:genre).where(genres: { name: @genre })
     else
       @items = Item.all
     end
+    @items_page = Item.page(params[:page])
   end
 
   private
