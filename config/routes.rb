@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get '/' => 'homes#top'
     resources :genres, only: [:index, :edit, :create, :update]
     resources :items, only: [:index, :new, :create, :show, :update, :edit]
+    resources :customer, only: [:index, :show, :edit, :update]
   end
 
   scope module: :public do
