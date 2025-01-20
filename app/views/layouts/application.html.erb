@@ -34,6 +34,12 @@
             <li class="nav-item">
               <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, type: "button", class: "btn btn-outline-dark ml-3" %>
             </li>
+            <li class="ml-3 mt-1">
+              <%= form_with url: items_path, method: :get, local: true do |f| %>
+                <%= f.text_field :search %>
+                <%= f.submit 'Search', name: nil %>
+              <% end %>
+            </li>
           <% else %>
             <li class="nav-item">
               <%= link_to "About", about_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
@@ -46,6 +52,12 @@
             </li>
             <li class="nav-item">
               <%= link_to "ログイン", new_customer_session_path, type: "button", class: "btn btn-outline-dark ml-3" %>
+            </li>
+            <li class="ml-3 mt-1">
+              <%= form_with url: items_path, method: :get, local: true do |f| %>
+                <%= f.text_field :search %>
+                <%= f.submit 'Search', name: nil %>
+              <% end %>
             </li>
           <% end %>
           </ul>

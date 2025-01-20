@@ -14,4 +14,10 @@ class Item < ApplicationRecord
   def  add_tax_price
     (self.price * 1.10).round
   end
+  
+  def self.search(search)
+    return Item.all unless search
+    Item.where(['name LIKE ? OR introduction', "%#{search}%"])
+  end
+  
 end

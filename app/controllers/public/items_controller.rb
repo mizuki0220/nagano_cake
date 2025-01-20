@@ -8,6 +8,7 @@ class Public::ItemsController < ApplicationController
       @items = Item.all
     end
     @items_page = Item.page(params[:page])
+    @items_search = Item.search(params[:search])
   end
 
   def show
