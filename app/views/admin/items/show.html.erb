@@ -1,9 +1,9 @@
 <div class="container px-5 px-sm-0 mt-5 mb-5">
   <div class="row">
     <h3 class="bg-secondary text-center mb-5">商品詳細</h3>
-    <div class="col-12 d-flex flex-nowrap">
+    <div class="col-12 d-flex flex-wrap justify-content-center">
       <%= image_tag @item.get_image, size: "400x300" %>
-      <div class="col-8">
+      <div class="col-xs-12 col-sm-6 col-md-6">
       <table class="table-condensed">
         <tr>
           <div class="form-group">
@@ -40,8 +40,8 @@
         </div>
         </tr>
       </table>
-      </div>
       <%= link_to '編集する', edit_admin_item_path, class:"btn btn-success py-0 text-center" %>
+      </div>
     </div>
   </div>
 </div>
