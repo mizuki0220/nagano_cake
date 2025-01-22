@@ -1,46 +1,48 @@
-<div class="container px-5 px-sm-0 mt-5 mb-5">
+<div class="container px-5 my-5 px-sm-0">
   <div class="row">
     <h3 class="bg-secondary text-center mb-5">商品詳細</h3>
     <div class="col-12 d-flex flex-wrap justify-content-center">
       <%= image_tag @item.get_image, size: "400x300" %>
       <div class="col-xs-12 col-sm-6 col-md-6">
-      <table class="table-condensed">
+      <table class="table table-borderless">
         <tr>
           <div class="form-group">
-            <th class="">商品名</th>
-            <td class="pl-5"><%= @item.name %></td>
+            <th>商品名</th>
+            <td><%= @item.name %></td>
           </div>
         </tr>
         <tr>
           <div class="form-group">
             <th>商品説明</th>
-            <td class="pl-5 text-wrap"><%= @item.introduction %></td>
+            <td class="text-wrap"><%= @item.introduction %></td>
           </div>
         </tr>
         <tr>
           <div class="form-group">
             <th>ジャンル</th>
-            <td class="pl-5"><%= @item.genre.name %></td>
+            <td><%= @item.genre.name %></td>
           </div>
         </tr>
         <tr>
           <div class="form-group">
             <th>税込価格<br>(税抜価格)</th>
-            <td class="pl-5"><%= @item.add_tax_price.to_s(:dalimited) %>円<br>(<%= @item.price %>円)</td>
+            <td><%= @item.add_tax_price.to_s(:dalimited) %>円<br>(<%= @item.price %>円)</td>
           </div>
         </tr>
         <tr>
         <div class="form-group">
           <th>販売ステータス</th>
           <% if @item.is_active == true %>
-            <td class="text-success font-weight-bold pl-5">販売中</td>
+            <td class="text-success font-weight-bold">販売中</td>
           <% else %>
-            <td class="text-danger font-weight-bold pl-5">販売停止中</td>
+            <td class="text-danger font-weight-bold">販売停止中</td>
           <% end %>
         </div>
         </tr>
       </table>
-      <%= link_to '編集する', edit_admin_item_path, class:"btn btn-success py-0 text-center" %>
+      <div class="text-center">
+        <%= link_to '編集する', edit_admin_item_path, class:"btn btn-success px-3 py-2 text-center" %>
+      </div>
       </div>
     </div>
   </div>

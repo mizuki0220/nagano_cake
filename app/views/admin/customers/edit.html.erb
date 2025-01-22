@@ -1,2 +1,70 @@
-<h1>Admin::Customers#edit</h1>
-<p>Find me in app/views/admin/customers/edit.html.erb</p>
+<div class="container px-5 my-5 px-sm-0">
+  <div class="row">
+    <div class="col-sm-8 px-sm-0 offset-sm-1 mb-3">
+      <h3 class="col-7 bg-secondary text-center mb-5"><%= @customer.first_name + @customer.last_name %>の会員情報編集</h3>
+      <div class="col-sm-12 px-sm-0 mx-auto mb-5">
+      <%= form_with model: @customer, url: admin_customer_path(@customer) do |f| %>
+      <table class="table table-borderless">
+        <tr>
+          <div class="form-group">
+            <th>会員ID</th>
+            <td><%= @customer.id %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :氏名 %></th>
+            <td class="text-wrap"><%= f.text_field :first_name, placeholder:"名字" %></td>
+            <td class="text-wrap"><%= f.text_field :last_name, placeholder:"名前" %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :フリガナ %></th>
+            <td class="text-wrap"><%= f.text_field :first_name_kana, placeholder:"ミョウジ" %></td>
+            <td class="text-wrap"><%= f.text_field :last_name_kana, placeholder:"ナマエ" %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :郵便番号 %></th>
+            <td><%= f.text_field :postal_code, placeholder:"1234567" %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :住所 %></th>
+            <td><%= f.text_area :address, :size => "30", placeholder:"東京都新宿区西新宿2-8-1" %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :電話番号 %></th>
+            <td><%= f.text_field :telephone_number, placeholder:"09012345678" %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :メールアドレス %></th>
+            <td><%= f.text_field :email, placeholder:"sample@example.com" %></td>
+          </div>
+        </tr>
+        <tr>
+        <div class="form-group">
+          <th><%= f.label :会員ステータス %></th>
+          <td><%= f.radio_button :is_active, true, checked: true %>
+              <%= f.label :is_active, "有効" %>
+              <%= f.radio_button :is_active, false %>
+              <%= f.label :is_active, "退会" %>
+          </td>
+        </div>
+        </tr>
+      </table>
+      <div class="text-center">
+        <%= f.submit "変更を保存", class:"btn btn-success" %>
+      </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

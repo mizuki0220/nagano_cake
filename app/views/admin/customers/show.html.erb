@@ -1,2 +1,66 @@
-<h1>Admin::Customers#show</h1>
-<p>Find me in app/views/admin/customers/show.html.erb</p>
+<div class="container px-5 my-5 px-sm-0">
+  <div class="row">
+    <div class="col-sm-8 px-sm-0 offset-sm-1 mb-3">
+      <h3 class="col-6 bg-secondary text-center mb-5"><%= @customer.first_name + @customer.last_name %>の会員詳細</h3>
+      <div class="col-sm-12 px-sm-0 mx-auto mb-5">
+      <table class="table table-borderless">
+        <tr>
+          <div class="form-group">
+            <th>会員ID</th>
+            <td><%= @customer.id %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th>氏名</th>
+            <td class="text-wrap"><%= @customer.first_name + @customer.last_name %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th>フリガナ</th>
+            <td><%= @customer.first_name_kana + @customer.last_name_kana %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th>郵便番号</th>
+            <td><%= @customer.postal_code %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th>住所</th>
+            <td><%= @customer.address %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th>電話番号</th>
+            <td><%= @customer.telephone_number %></td>
+          </div>
+        </tr>
+        <tr>
+          <div class="form-group">
+            <th>メールアドレス</th>
+            <td><%= @customer.email %></td>
+          </div>
+        </tr>
+        <tr>
+        <div class="form-group">
+          <th>会員ステータス</th>
+          <% if @customer.is_active == true %>
+            <td class="text-success font-weight-bold">有効</td>
+          <% else %>
+            <td class="text-secondary font-weight-bold">退会</td>
+          <% end %>
+        </div>
+        </tr>
+      </table>
+      <div class="text-center">
+        <%= link_to '編集する', edit_admin_customer_path, class:"btn btn-success px-3 py-2 text-center" %>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
