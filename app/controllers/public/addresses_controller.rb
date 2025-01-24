@@ -10,11 +10,11 @@ class Public::AddressesController < ApplicationController
   def create
     @address = Address.new(address_params)
     if @address.save
-      flash[:notice] = "正常に登録しました"
+      flash[:notice] = "新しい配送先の登録が完了しました。"
       redirect_to addresses_path
     else
-      @addresses = Genre.all
-      flash[:alert] = "登録に失敗しました"
+      @addresses = Address.all
+      flash[:alert] = "新しい配送先内容に不備があります。"
       render :index
     end
   end
@@ -24,4 +24,10 @@ class Public::AddressesController < ApplicationController
 
   def destroy
   end
+
+  private
+  def address_params
+    params.require(:address).permit(:name, :postal_code, :address, :customer_id)
+  end
+
 end
