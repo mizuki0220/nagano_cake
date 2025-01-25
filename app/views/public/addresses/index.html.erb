@@ -28,7 +28,7 @@
       <% end %>
       </div>
     </div>
-    <div class="col-sm-8 px-sm-0 mx-auto mb-5">
+    <div class="col-sm-10 px-sm-0 mx-auto mb-5">
       <table class="table table-bordered table-striped mb-5">
         <thead>
           <tr>
@@ -44,8 +44,8 @@
             <td><%= address.postal_code %></td>
             <td><%= address.address %></td>
             <td><%= address.name %></td>
-            <td>
-              <%= link_to '編集する', edit_address_path, class:"btn btn-success" %>
+            <td class="text-center">
+              <%= link_to '編集する', edit_address_path(address.id), class:"btn btn-success mr-2" %>
               <%= link_to '削除する', address_path(address.id), method: :delete , data: { confirm: "本当に削除しますか？"}, class:"btn btn-danger" %>
             </td>
           </tr>
