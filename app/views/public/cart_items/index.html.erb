@@ -3,9 +3,22 @@
     <div class="col-sm-8 px-sm-0 offset-sm-1 mb-3">
       <h2 class="col-6 bg-secondary text-center">ショッピングカート</h2>
     </div>
+    <% unless @cart_items.empty? %>
     <div class="col-sm-2 px-sm-0 text-right mb-5">
       <%= link_to "カートを空にする", destroy_all_cart_items_path, method: :delete, data: { confirm: "本当に削除しますか？"}, class:"btn btn-danger" %>
     </div>
+    <% end %>
+  </div>
+
+    <% if @cart_items.empty? %>
+      <div style="height: 200px;"></div>
+      <div class="text-center">
+        <h2>カートに商品が入っておりません</h2>
+        <%= link_to "買い物を続ける", root_path, class: "btn btn-primary mt-3" %>
+      </div>
+      <div style="height: 200px;"></div>
+
+    <% else %>
     <div class="row">
       <div class="col-sm-12 px-sm-0 mx-auto mb-5">
         <table class= "table table-bordered table-striped">
@@ -21,7 +34,7 @@
           <tbody>
             <% @cart_items.each do |cart| %>
             <tr>
-            <td><%= cart.item_id %></td><!--item_id 商品名にしたい-->
+            <td><%= cart_item.item.name %></td><!--item_id 商品名にしたい-->
             <td><%= cart.item.add_tax_price.to_s(:dalimited) %></td>
             <td><%= cart.amount %></td>
             <td><%= cart_item.subtotal%></td>
@@ -44,6 +57,7 @@
 
         </table>
       </div>
+    <% end %>
     </div>
 
     <!--<div class="justify-content-center">-->

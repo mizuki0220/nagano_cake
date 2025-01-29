@@ -5,7 +5,7 @@ class CartItem < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :customer
-  has_many :items, dependent: :destroy
+  belongs_to :item
 
   def subtotal
     item.with_tax_price * amount
