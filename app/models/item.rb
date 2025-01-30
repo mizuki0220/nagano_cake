@@ -14,8 +14,8 @@ class Item < ApplicationRecord
   end
 
   #税込の表示
-  def add_tax_price
-    (self.price * 1.10).round
+  def with_tax_price
+    (price * 1.1).floor  # 税率10%を加算し、小数点以下を切り捨て
   end
 
   #検索
