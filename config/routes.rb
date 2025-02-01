@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'orders/show'
+    get 'orders/update'
+  end
+  namespace :public do
+    get 'orders/new'
+    get 'orders/index'
+    get 'orders/show'
+    get 'orders/create'
+  end
   devise_for :cart_items
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
