@@ -18,7 +18,7 @@
         <% else %>
           <h2 class="mb-3"><strong><%= @item.name %></strong></h2>
           <p class="mb-5"><%= @item.introduction %></p>
-          <h4>¥ <%= @item.add_tax_price.to_s(:dalimited) %>(税込)</h4>
+          <h4>¥ <%= @item.with_tax_price.to_s(:dalimited) %>(税込)</h4>
           <h3 class="text-danger">販売停止中です</h3>
         <% end %>
       </div>
