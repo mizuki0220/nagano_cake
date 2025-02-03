@@ -5,6 +5,14 @@ class Public::CartItemsController < ApplicationController
   end
 
   def update
+    @cart_item = CartItem.find(params[:id])
+    if @cart_item.update(cart_item_params)
+      flash[:notice] = "個数を変更しました"
+      redirect_to cart_items_path
+    else
+      flash[:alert] = "正しい個数を入力してください"
+      render :index
+    end
   end
 
   def create
