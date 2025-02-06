@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
+    get 'order_details/update'
+  end
+  namespace :admin do
     get 'orders/show'
     get 'orders/update'
   end
