@@ -1,18 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'order_details/update'
-  end
-  namespace :admin do
-    get 'orders/show'
-    get 'orders/update'
-  end
-  namespace :public do
-    get 'orders/new'
-    get 'orders/index'
-    get 'orders/show'
-    get 'orders/create'
-  end
-  devise_for :cart_items
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
@@ -22,6 +8,8 @@ Rails.application.routes.draw do
     resources :genres, only: [:index, :edit, :create, :update]
     resources :items, only: [:index, :new, :create, :show, :update, :edit]
     resources :customers, only: [:index, :show, :edit, :update]
+    resources :orders, only: [:show, :update]
+    resources :order_details, only: [:update]
   end
 
   scope module: :public do
@@ -51,6 +39,13 @@ Rails.application.routes.draw do
       end
     end
     resources :items, only: [:index, :show]
+
+    resources :orders, only: [:new, :index, :show, :create] do
+      collection do
+        get 'confirm'
+        get 'completion'
+      end
+    end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
