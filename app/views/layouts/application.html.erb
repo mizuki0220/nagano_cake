@@ -22,13 +22,13 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="navbar-nav">
           <% if customer_signed_in? %>
-            <li class="nav-item">
+            <li class="nav-item d-flex align-items-center">
               ようこそ
               <strong><%= current_customer.first_name %><%= current_customer.last_name %></strong>
               さん
             </li>
             <li class="nav-item">
-              <%= link_to 'マイページ', customers_my_page_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
+              <%= link_to 'マイページ', customers_my_page_path, type: "button", class: "btn btn-outline-dark ml-5 mb-2" %>
             </li>
             <li class="nav-item">
               <%= link_to '商品一覧', items_path, type: "button", class: "btn btn-outline-dark ml-3 mb-2" %>
