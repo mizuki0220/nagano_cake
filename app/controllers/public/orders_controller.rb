@@ -12,8 +12,8 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    @order.shipping_fee = 800 # 例：固定送料（適宜修正）
-    @order.total_price = calculate_total_price # 合計金額を計算
+    @order.shipping_fee = 800 # 固定送料
+    @order.total_price = CartItem.total_price(current_customer.cart_items) + @order.shipping_fee # 合計金額を計算
     @order.pay_method = params[:order][:payment_method]
 
     # 住所選択の処理
@@ -39,9 +39,7 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(session[:order]) # セッションからデータを取得
-    if @order.nil?
-      redirect_to new_order_path, alert: "注文情報が見つかりません"
-    end
+    @cart_items = current_customer.cart_items.includes(:item) # カート内の商品を取得
   end
 
   private
@@ -50,8 +48,4 @@ class Public::OrdersController < ApplicationController
     params.require(:order).permit(:name, :postal_code, :address, :pay_method)
   end
 
-  def calculate_total_price
-    # カートの商品合計金額を計算する（例）
-    current_customer.cart_items.sum { |item| item.amount * item.item.price } + 800
-  end
 end
