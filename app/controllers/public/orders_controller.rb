@@ -34,7 +34,7 @@ class Public::OrdersController < ApplicationController
     # 確認画面へ情報を渡すために `session` を使う
     session[:order] = @order.attributes
 
-    redirect_to confirm_orders_path
+    redirect_to completion_orders_path
   end
 
   def confirm
