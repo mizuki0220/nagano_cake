@@ -2,7 +2,12 @@
   <div class="row">
     <h3 class="bg-secondary text-center mb-5">商品詳細</h3>
     <div class="col-12 d-flex flex-wrap justify-content-center">
-      <%= image_tag @item.get_image, size: "400x300" %>
+      <!--<%#= image_tag @item.get_image, size: "400x300" %>-->
+      <% if @item.image.attached? %>
+        <%= image_tag @item.image, class: "img-fluid", size: "400x300" %>
+      <% else %>
+        <%= image_tag @item.get_image, size: "400x300" %>
+      <% end %>
       <div class="col-xs-12 col-sm-6 col-md-6">
       <table class="table table-borderless">
         <tr>
@@ -26,7 +31,7 @@
         <tr>
           <div class="form-group">
             <th>税込価格<br>(税抜価格)</th>
-            <td><%= @item.add_tax_price.to_s(:dalimited) %>円<br>(<%= @item.price %>円)</td>
+            <td><%= number_to_currency(@item.with_tax_price.to_s(:dalimited)) %>円<br>(<%= @item.price %>円)</td>
           </div>
         </tr>
         <tr>
