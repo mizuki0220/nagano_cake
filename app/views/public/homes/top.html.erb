@@ -1,3 +1,26 @@
-<p>トップページ</p>
-<p>新着商品一覧</p>
-<p>商品をクリックすると商品詳細ページ（items#show）へ</p>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-9 col-sm-12 mt-3" style="background: url('<%= asset_path 'top_image.jpg' %>') center center no-repeat; background-size: 100％; text-align: center;">
+      <div class="pt-5 mt-5">
+        <h1 class="bg-light">ようこそ、ながのCAKEへ！</h1>
+        <p>このサイトは、ケーキ販売のECサイトになります。</p>
+        <p>会員でない方も商品の説明はできますが、</p>
+        <p>購入には会員登録が必要になります。</p>
+      </div>
+    </div>
+    <%= render 'public/items/list' %>
+    <h2>商品一覧</h2>
+    <div class="d-flex flex-wrap">
+      <% @items.each do |item| %>
+        <%= link_to item_path(item.id), class: "text-decoration-none w-25" do %>
+          <div class="card m-2 p-1 card-hover">
+            <%= image_tag item.get_product_image(100,100), class: "card-img-top rounded shadow-sm" %>
+            <div class="card-body text-body">
+              <h5 class="card-title text-primary"><%= item.name %></h5>
+              <p class="card-text text-primary">¥<%= item.price %></p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
