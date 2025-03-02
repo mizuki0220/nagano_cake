@@ -10,36 +10,59 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
+    order_data = JSON.parse(params[:order])
+    @order = Order.new(order_data)
+    @order.customer_id = current_customer.id
+
+    if @order.save
+      @cart_items = current_customer.cart_items
+      @cart_items.each do |cart_item|
+        OrderDetail.create!(
+          item_id: cart_item.item_id,
+          order_id: @order.id,
+          quantity: cart_item.amount,
+          price: cart_item.item.price,
+          is_active: 0
+        )
+      end
+      @cart_items.destroy_all
+      redirect_to completion_orders_path
+    else
+      flash[:danger] = "注文の処理中にエラーが発生しました"
+      redirect_back(fallback_location: confirm_orders_path)
+    end
+  end
+
+  def confirm
     @order = Order.new(order_params)
+    @cart_items = CartItem.where(customer_id: current_customer.id)
     @order.customer_id = current_customer.id
     @order.shipping_fee = 800 # 固定送料
-    @order.total_price = CartItem.total_price(current_customer.cart_items) + @order.shipping_fee # 合計金額を計算
-    @order.pay_method = params[:order][:payment_method]
+    @order.total_price = CartItem.total_price(current_customer.cart_items) + @order.shipping_fee
+    @order.payment_method = params[:order][:payment_method].to_i
 
-    # 住所選択の処理
-    case params[:order][:address_option].to_i
-    when 0  # 自分の住所
+    address_option = params[:order][:address_option].to_i
+
+    case address_option
+    when 0
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
-      @order.name = current_customer.first_name + current_customer.last_name
-    when 1  # 登録済み住所
+      @order.name = "#{current_customer.first_name} #{current_customer.last_name}"
+    when 1
       address = Address.find(params[:order][:address_id])
       @order.postal_code = address.postal_code
       @order.address = address.address
       @order.name = address.name
-    when 2  # 新しいお届け先（フォーム入力）
-      # すでに `order_params` で取得されているため特に処理不要
+    when 2
+      # すでに `order_params` で取得済み
     end
 
-    # 確認画面へ情報を渡すために `session` を使う
-    session[:order] = @order.attributes
-
-    redirect_to confirm_orders_path
-  end
-
-  def confirm
-    @order = Order.new(session[:order]) # セッションからデータを取得
-    @cart_items = current_customer.cart_items.includes(:item) # カート内の商品を取得
+    if @order.valid?
+      render :confirm
+    else
+      flash[:danger] = "お届け先の内容に不備があります<br>・#{@order.errors.full_messages.join('<br>・')}"
+      redirect_back(fallback_location: new_order_path)
+    end
   end
 
   private
