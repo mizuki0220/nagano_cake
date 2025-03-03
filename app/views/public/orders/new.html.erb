@@ -5,10 +5,10 @@
     </div>
     <%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %>
     <h4><b>支払方法</b></h4>
-    <%= f.radio_button :payment_method, Order.payment_methods.key(0), class: "ml-4" %>
+    <%= f.radio_button :payment_method, 0, class: "ml-4" %>
     <%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %></br>
-    <%= f.radio_button :payment_method, Order.payment_methods.key(1), class: "ml-4" %>
-    <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
+    <%= f.radio_button :payment_method, 1, class: "ml-4" %>
+    <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer] %>
     <h4 class="mt-2"><b>お届け先</b></h4>
     <%= f.radio_button :address_option, 0, checked: true, class: "ml-4"  %>ご自身の住所<br>
       <div class="ml-5 mt-2"><%= "〒#{current_customer.postal_code} #{current_customer.address}" %></div>

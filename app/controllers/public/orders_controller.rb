@@ -10,10 +10,8 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    order_data = JSON.parse(params[:order])
-    @order = Order.new(order_data)
+    @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-
     if @order.save
       @cart_items = current_customer.cart_items
       @cart_items.each do |cart_item|
@@ -68,7 +66,9 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:name, :postal_code, :address, :pay_method)
+    params.require(:order).permit(:name, :postal_code, :address, :shipping_fee, :total_price, :payment_method, :other_attributes...).tap do |p|
+    p[:payment_method] = p[:payment_method].to_i if p[:payment_method].present?
+  end
   end
 
 end
