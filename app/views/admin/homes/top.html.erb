@@ -1,4 +1,3 @@
-管理者トップページ
 <div class="container mt-5 mb-5">
   <div class="row">
     <div class="col-sm-8 px-sm-0 offset-sm-1 mb-3">
@@ -17,19 +16,30 @@
           <th>注文ステータス</th>
         </tr>
       </thead>
-      <% @orders.each do |order| %>
       <tbody>
+      <% @orders.each do |order| %>
         <tr>
-          <td class="align-middle"></td>
-          <td class="align-middle"></td>
-          <% end %>
-          <td class="align-middle"></td>
-          <td class="align-middle"></td>
+          <td class="align-middle link">
+            <%= link_to admin_order_path(order) do %>
+              <%= order.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+            <% end %>
+          </td>
+          <td class="align-middle">
+            <%= order.customer.first_name+order.customer.last_name %>
+          </td>
+          <td class="align-middle">
+            <% @total_amount = 0 %>
+            <% order.order_details.each do |order_detail| %>
+              <% @total_amount += order_detail.quantity %>
+            <% end %>
+            <%= @total_amount %>
+          </td>
+          <td class="align-middle"><%= order.is_active %></td>
         </tr>
-      </tbody>
       <% end %>
+      </tbody>
     </table>
-    <%= paginate @customers %>
+    <%= paginate @orders %>
     </div>
   </div>
 </div>

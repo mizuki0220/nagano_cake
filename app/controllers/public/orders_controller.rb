@@ -7,6 +7,17 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find_by(id: params[:id])
+
+    if @order.nil?
+      Rails.logger.error "Order not found with id: #{params[:id]}"
+      return render plain: "注文が見つかりません", status: :not_found
+    else
+      Rails.logger.debug "Order found: #{@order.inspect}"
+      Rails.logger.debug "Order.customer: #{@order.customer.inspect}" if @order.respond_to?(:customer)
+    end
+
+    @order_details = OrderDetail.where(order_id: @order.id)
   end
 
   def create
