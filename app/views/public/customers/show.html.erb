@@ -1,1 +1,46 @@
-マイページ
+<div class="container mt-5 mb-5">
+  <div class="row ml-3">
+    <div class="col-sm-10 px-sm-0 offset-sm-1 mb-3">
+      <h2 class="col-4 bg-secondary text-center">マイページ</h2>
+    </div>
+  </div>
+  <div class="row">
+    <% if @customer.id == current_customer.id %>
+    <div class="col-sm-7 offset-sm-1">
+      <table class="table table-borderless">
+        <tr>
+          <th>登録情報</th>
+          <td class="link">
+            <%= link_to "編集する", customers_information_edit_path, class: "btn btn-secondary ml-3" %>
+          </td>
+        </tr>
+      </table>
+      <table class="table table-bordered">
+        <tr>
+          <th>氏名</th>
+          <td><%= @customer.first_name + @customer.last_name %></td>
+        </tr>
+        <tr>
+          <th>カナ</th>
+          <td><%= @customer.first_name_kana + @customer.last_name_kana %></td>
+        </tr>
+        <tr>
+          <th>郵便番号</th>
+          <td><%= @customer.postal_code %></td>
+        </tr>
+        <tr>
+          <th>住所</th>
+          <td><%= @customer.address %></td>
+        </tr>
+        <tr>
+          <th>電話番号</th>
+          <td><%= @customer.telephone_number %></td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td><%= @customer.email %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
