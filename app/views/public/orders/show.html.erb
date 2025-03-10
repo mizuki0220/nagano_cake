@@ -1,2 +1,76 @@
-<h1>Public::Orders#show</h1>
-<p>Find me in app/views/public/orders/show.html.erb</p>
+<div class="container mt-5 mb-5">
+  <div class="row ml-3">
+    <div class="col-sm-10 px-sm-0 offset-sm-1 mb-3">
+      <h2 class="col-4 bg-secondary text-center">注文履歴詳細</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-7 offset-sm-1">
+      <h5><strong>注文情報</strong></h5>
+      <table class="table table-bordered">
+        <tr>
+          <th class="table-active">注文日</th>
+          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+        <tr>
+          <th class="table-active">配送先</th>
+          <td>
+            〒<%= @order.postal_code %></br>
+            <%= @order.address %>
+            <%= @order.name %>
+          </td>
+        </tr>
+        <tr>
+          <th class="table-active">支払方法</th>
+          <td><%= @order.payment_method_i18n %></td>
+        </tr>
+        <tr>
+          <th class="table-active">ステータス</th>
+          <td><%= @order.is_active %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-sm-3 offset-sm-1">
+      <h5><strong>請求情報</strong></h5>
+      <table class="table table-bordered">
+        <tr>
+          <th class="table-active" style="width:50%">商品合計</th>
+          <td><%= number_to_currency(@order.total_price - 800) %></td>
+        </tr>
+        <tr>
+          <th class="table-active" style="width:50%">配送料</th>
+          <td><%= number_to_currency(@order.shipping_fee) %></td>
+        </tr>
+        <tr>
+          <th class="table-active" style="width:50%">ご請求金額</th>
+          <td><%= number_to_currency(@order.total_price) %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 offset-sm-1">
+      <h5 class="mt-3"><strong>注文内容</strong></h5>
+      <table class= "table table-bordered">
+        <thead>
+          <tr>
+            <th class="table-active">商品</th>
+            <th class="table-active">単価（税込）</th>
+            <th class="table-active">個数</th>
+            <th class="table-active">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_details.each do |order_detail| %>
+          <tr>
+            <td><%= order_detail.item.name %></td>
+            <td><%= number_to_currency(order_detail.item.with_tax_price.to_s(:dalimited)) %></td>
+            <td><%= order_detail.quantity %></td>
+            <td><%= order_detail.item.with_tax_price * order_detail.quantity %>円</td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

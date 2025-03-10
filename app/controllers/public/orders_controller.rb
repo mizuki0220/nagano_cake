@@ -8,6 +8,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
+    @cart_items = CartItem.where(customer_id: current_customer.id)
     @order = Order.find_by(id: params[:id])
 
     if @order.nil?
