@@ -4,4 +4,40 @@
       <h2 class="col-4 bg-secondary text-center">注文履歴一覧</h2>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-12 px-sm-0 mx-auto mb-2">
+      <table class= "table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>注文日</th>
+            <th>配送先</th>
+            <th>注文商品</th>
+            <th>支払金額</th>
+            <th>ステータス</th>
+            <th>注文詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
+            <td>
+              〒<%= order.postal_code %></br>
+              <%= order.address %>
+              <%= order.name %>
+            </td>
+            <td>
+              <% order.order_details.each do |order_detail| %>
+                <%= link_to order_detail.item.name,item_path(order_detail.item) %><br>
+              <% end %>
+            </td>
+            <td><%= number_to_currency(order.total_price) %>円</td>
+            <td><%= order.is_active %></td>
+            <td class="text-center"><%= link_to "表示する", order_path(order.id), class:"btn btn-success" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
