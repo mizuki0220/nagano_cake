@@ -5,9 +5,18 @@ class Public::CustomersController < ApplicationController
   end
 
   def edit
+    @customer = current_customer
   end
 
   def update
+    @customer = Customer.find(params[:id])
+    if @customer.update(customer_params)
+      flash[:notice] = "編集が完了しました。"
+      redirect_to customers_my_page_path
+    else
+      flash[:alert] = "登録に失敗しました。"
+      render :edit
+    end
   end
 
   def withdraw
