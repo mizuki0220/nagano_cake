@@ -3,8 +3,8 @@
     <div class="col-sm-10 px-sm-0 offset-sm-1 mb-3">
       <h2 class="col-4 bg-secondary text-center">注文履歴詳細</h2>
     </div>
-    <div class="col-sm-7 px-sm-0 offset-sm-1 mb-3">
-    <table class="table table-borderless">
+    <div class="col-sm-7 px-sm-0 offset-sm-1">
+    <table class="table table-borderless table-sm">
       <tr>
         <th>購入者</th>
         <td class="link">
@@ -31,9 +31,62 @@
       </tr>
       <tr>
         <th>注文ステータス</th>
-        <td><%= @order.is_active %></td>
+        <td>
+          <%= form_with model: @order, url: admin_order_path(@order), method: :patch, local: true do |f| %>
+            <%= f.select :is_active, Order.is_actives.keys.map { |k| [k, k] } %>
+            <%= f.submit "更新", class: "btn btn-success" %>
+          <% end %>
+        </td>
       </tr>
     </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-7 offset-sm-1">
+    <table class="table table-bordered mb-5">
+      <thead>
+        <tr>
+          <th class="table-active">商品名</th>
+          <th class="table-active">単価(税込)</th>
+          <th class="table-active">数量</th>
+          <th class="table-active">小計</th>
+          <th class="table-active">制作ステータス</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @order.order_details.each do |order_detail| %>
+        <tr>
+            <td><%= order_detail.item.name %></td>
+            <td><%= number_to_currency(order_detail.item.with_tax_price.to_s(:dalimited)) %></td>
+            <td><%= order_detail.quantity %></td>
+            <td><%= order_detail.item.with_tax_price * order_detail.quantity %>円</td>
+            <td>
+              <%= form_with model: order_detail, url: admin_order_detail_path(order_detail), method: :patch, local: true do |f| %>
+              <%= f.hidden_field :order_detail_id, :value => order_detail.id %>
+              <%= f.select :is_active, OrderDetail.is_actives.keys.map %>
+              <%= f.submit "更新", class: "btn btn-success" %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+    </div>
+    <div class="col-sm-3 offset-sm-1">
+      <table class="table table-borderless table-sm">
+        <tr>
+          <th style="width:50%">商品合計</th>
+          <td><%= number_to_currency(@order.total_price - 800) %></td>
+        </tr>
+        <tr>
+          <th style="width:50%">送料</th>
+          <td><%= number_to_currency(@order.shipping_fee) %></td>
+        </tr>
+        <tr>
+          <th style="width:50%">請求金額合計</th>
+          <td><%= number_to_currency(@order.total_price) %></td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

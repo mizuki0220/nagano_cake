@@ -13,6 +13,17 @@
   </head>
 
   <body class="d-flex flex-column vh-100">
+    <% if flash[:notice] %>
+      <div class="alert alert-success" role="alert">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger" role="alert">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
     <header class="border-bottom border-dark">
       <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
