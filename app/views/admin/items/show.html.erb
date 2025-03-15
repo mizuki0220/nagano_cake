@@ -31,7 +31,7 @@
         <tr>
           <div class="form-group">
             <th>税込価格<br>(税抜価格)</th>
-            <td><%= number_to_currency(@item.with_tax_price.to_s(:dalimited)) %>円<br>(<%= @item.price %>円)</td>
+            <td><%= number_to_currency(@item.with_tax_price.to_s(:dalimited)) %><br>(<%= number_to_currency(@item.price.to_s(:dalimited)) %>)</td>
           </div>
         </tr>
         <tr>

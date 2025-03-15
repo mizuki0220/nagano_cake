@@ -29,7 +29,7 @@
                 <u><%= item.name %></u>
               </td>
               <% end %>
-              <td class="align-middle"><%= item.price %></td>
+              <td class="align-middle"><%= number_to_currency(item.price.to_s(:dalimited)) %></td>
               <td class="align-middle"><%= item.genre.name %></td>
               <td class="align-middle">
                 <% if item.is_active == true %>

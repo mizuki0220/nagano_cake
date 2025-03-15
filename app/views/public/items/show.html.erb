@@ -7,7 +7,7 @@
         <%  if @item.is_active == true %>
           <h2 class="mb-3"><strong><%= @item.name %></strong></h2>
           <p class="mb-5"><%= @item.introduction %></p>
-          <h4>¥ <%= @item.with_tax_price.to_s(:dalimited) %>(税込)</h4>
+          <h4><%= number_to_currency(@item.with_tax_price, unit: "¥", precision: 0, format: "%u%n") %>(税込)</h4>
           <p>
             <%= form_with model: @cart_item, local:true do |f| %>
               <%= f.hidden_field :item_id, value: @item.id %>

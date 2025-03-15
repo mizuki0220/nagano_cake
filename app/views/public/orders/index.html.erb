@@ -31,7 +31,7 @@
                 <%= link_to order_detail.item.name,item_path(order_detail.item) %><br>
               <% end %>
             </td>
-            <td><%= number_to_currency(order.total_price) %>円</td>
+            <td><%= number_to_currency(order.total_price) %></td>
             <td><%= order.is_active %></td>
             <td class="text-center"><%= link_to "表示する", order_path(order.id), class:"btn btn-success" %></td>
           </tr>

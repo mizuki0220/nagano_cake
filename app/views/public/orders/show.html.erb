@@ -66,7 +66,7 @@
             <td><%= order_detail.item.name %></td>
             <td><%= number_to_currency(order_detail.item.with_tax_price.to_s(:dalimited)) %></td>
             <td><%= order_detail.quantity %></td>
-            <td><%= order_detail.item.with_tax_price * order_detail.quantity %>円</td>
+            <td><%= number_to_currency(order_detail.item.with_tax_price * order_detail.quantity, unit: "", precision: 0) %>円</td>
           </tr>
           <% end %>
         </tbody>

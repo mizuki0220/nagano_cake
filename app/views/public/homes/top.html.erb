@@ -18,7 +18,7 @@
             <%= image_tag item.get_image, size: "100x100", class: "card-img-top rounded shadow-sm" %>
             <div class="card-body text-body text-break">
               <h5 class="card-title text-primary"><%= item.name %></h5>
-              <p class="card-text text-primary">¥<%= item.price %></p>
+              <p class="card-text text-primary"><%= number_to_currency(item.price, unit: "¥", precision: 0, format: "%u%n") %></p>
             </div>
           </div>
         <% end %>
