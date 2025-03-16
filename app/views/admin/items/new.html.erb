@@ -2,6 +2,15 @@
   <div class="row">
     <h2 class="bg-secondary text-center mb-5">商品新規登録</h2>
   </div>
+  <% if @item.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="row">
     <div class="col-sm-10 px-sm-0 mx-auto mb-5 d-flex justify-content-center">
       <%= form_with model: @item, url: admin_items_path, local: true do |f| %>

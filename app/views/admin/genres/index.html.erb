@@ -2,7 +2,15 @@
     <div class="row mt-3 mb-5">
       <h2 class="bg-secondary">ジャンル一覧・追加</h2>
     </div>
-
+    <% if @genre.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @genre.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <div class="row">
       <div class="col-sm-6 px-sm-0 mx-auto mb-5">
         <%= form_with model: @genre, url: admin_genres_path, method: :post, local: true do |f| %>

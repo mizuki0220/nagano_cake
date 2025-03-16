@@ -3,6 +3,15 @@
     <div class="col-sm-12">
 
       <h2>ジャンル編集</h2>
+      <% if @genre.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+            <% @genre.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
       <%= form_with model: @genre, url: admin_genre_path(@genre) do |f| %>
         <div class="form-group">

@@ -2,6 +2,15 @@
   <div class="row">
     <h2 class="bg-secondary text-center mb-5">配達先編集</h2>
   </div>
+  <% if @address.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @address.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="row">
     <div class="col-sm-12 px-sm-0 mx-auto mb-5 d-flex justify-content-center">
       <%= form_with model: @address, local: true do |f| %>

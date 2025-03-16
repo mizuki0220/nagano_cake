@@ -2,6 +2,15 @@
   <div class="row">
     <div class="col-sm-8 px-sm-0 offset-sm-1 mb-3">
       <h3 class="col-7 bg-secondary text-center mb-5"><%= @customer.first_name + @customer.last_name %>の会員情報編集</h3>
+      <% if @customer.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+            <% @customer.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <div class="col-sm-12 px-sm-0 mx-auto mb-5">
       <%= form_with model: @customer, url: admin_customer_path(@customer) do |f| %>
       <table class="table table-borderless">

@@ -2,6 +2,15 @@
   <div class="row">
     <div class="col-sm-8 px-sm-0 offset-sm-1 mb-3">
       <h2 class="col-5 bg-secondary text-center">配送先登録/一覧</h2>
+      <% if @address.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+            <% @address.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <div class="col-sm-12 px-sm-0 mx-auto mb-5">
       <%= form_with model: @address, url: addresses_path, local: true do |f| %>
       <table class="table table-borderless">

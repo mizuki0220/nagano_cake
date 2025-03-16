@@ -8,18 +8,20 @@
         <% else %>
           <h2>商品一覧</h2>
         <% end %>
-      <div class="d-flex flex-wrap">
-      <% @items.each do |item| %>
-        <%= link_to item_path(item.id), class: "text-decoration-none w-25" do %>
-          <div class="card m-2 p-1 card-hover" style="height: 230px;">
-            <%= image_tag item.get_image, size: "100x100", class: "card-img-top rounded shadow-sm" %>
-              <div class="card-body text-body text-break">
-                <h5 class="card-title text-primary"><%= item.name %></h5>
-                <p class="card-text text-primary"><%= number_to_currency(item.price, unit: "¥", precision: 0, format: "%u%n") %></p>
+      <div class="row">
+        <% @items.each do |item| %>
+          <div class="col-6 col-md-4 col-lg-3 p-2">
+            <%= link_to item_path(item.id), class: "text-decoration-none" do %>
+              <div class="card m-2 p-1 card-hover" style="height: 230px;">
+                <%= image_tag item.get_image, size: "100x100", class: "card-img-top rounded shadow-sm" %>
+                <div class="card-body text-body text-break">
+                  <h5 class="card-title text-primary"><%= item.name %></h5>
+                  <p class="card-text text-primary"><%= number_to_currency(item.price, unit: "¥", precision: 0, format: "%u%n") %></p>
+                </div>
               </div>
+            <% end %>
           </div>
         <% end %>
-      <% end %>
       </div>
       <%= paginate @items_page %>
     </div>
