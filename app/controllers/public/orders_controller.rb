@@ -1,4 +1,6 @@
 class Public::OrdersController < ApplicationController
+  before_action :authenticate_customer!
+  
   def new
     @order = Order.new
   end
@@ -90,6 +92,12 @@ class Public::OrdersController < ApplicationController
     params.require(:order).permit(:name, :postal_code, :address, :shipping_fee, :total_price, :payment_method, :other_attributes, :address_id...).tap do |p|
     p[:payment_method] = p[:payment_method].to_i if p[:payment_method].present?
   end
+  end
+  
+  def authenticate_customer!
+    unless current_customer
+      redirect_to new_customer_session_path, alert: "ログインしてください"
+    end
   end
 
 end

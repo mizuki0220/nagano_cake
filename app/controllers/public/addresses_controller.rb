@@ -1,4 +1,6 @@
 class Public::AddressesController < ApplicationController
+  before_action :authenticate_customer!
+
   def index
     @address = Address.new
     @addresses = Address.all
@@ -42,6 +44,12 @@ class Public::AddressesController < ApplicationController
   private
   def address_params
     params.require(:address).permit(:name, :postal_code, :address, :customer_id)
+  end
+
+  def authenticate_customer!
+    unless current_customer
+      redirect_to new_customer_session_path, alert: "ログインしてください"
+    end
   end
 
 end

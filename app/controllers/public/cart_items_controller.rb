@@ -1,4 +1,5 @@
 class Public::CartItemsController < ApplicationController
+  before_action :authenticate_customer!
 
   def index
     @cart_items = CartItem.all
@@ -46,5 +47,11 @@ class Public::CartItemsController < ApplicationController
 
   def cart_item_params
     params.require(:cart_item).permit(:item_id, :amount)
+  end
+
+  def authenticate_customer!
+    unless current_customer
+      redirect_to new_customer_session_path, alert: "ログインしてください"
+    end
   end
 end
