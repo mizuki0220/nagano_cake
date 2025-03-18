@@ -10,7 +10,7 @@ class Customer < ApplicationRecord
 
 
   # **1. フォームを空で保存したくない（必須入力）**
-  validates :last_name, :first_name, :email, :postal_code, :address, :telephone_number, presence: true
+  validates :last_name, :first_name, :last_name_kana, :first_name_kana, :email, :postal_code, :address, :telephone_number, presence: true
 
   # **2. 数値のみ許可（郵便番号・電話番号）**
   validates :postal_code, format: { with: /\A\d{7}\z/, message: "は半角数字7桁で入力してください" }

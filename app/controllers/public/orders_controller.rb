@@ -45,7 +45,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-    @order = Order.new(order_params)
+    @order = Order.new(order_params) # address_option はここで渡さない
     @cart_items = CartItem.where(customer_id: current_customer.id)
     @order.customer_id = current_customer.id
     @order.shipping_fee = 800 # 固定送料
@@ -60,26 +60,34 @@ class Public::OrdersController < ApplicationController
       @order.address = current_customer.address
       @order.name = "#{current_customer.first_name} #{current_customer.last_name}"
     when 1
-      address = Address.find(params[:order][:address_id])
-      @order.postal_code = address.postal_code
-      @order.address = address.address
-      @order.name = address.name
+      address = Address.find_by(id: params[:order][:address_id])
+      if address
+        @order.postal_code = address.postal_code
+        @order.address = address.address
+        @order.name = address.name
+      else
+        flash[:danger] = "選択された住所が存在しません。"
+        return redirect_to new_order_path
+      end
     when 2
       # すでに `order_params` で取得済み
+      unless @order.valid?
+        flash[:danger] = "お届け先の内容に不備があります<br>・#{@order.errors.full_messages.join('<br>・')}"
+        return render :new
+      end
+    else
+      flash[:danger] = "お届け先を選択してください。"
+      return redirect_to new_order_path
     end
 
-    if @order.valid?
-      render :confirm
-    else
-      flash[:danger] = "お届け先の内容に不備があります<br>・#{@order.errors.full_messages.join('<br>・')}"
-      redirect_back(fallback_location: new_order_path)
-    end
+    render :confirm
   end
+
 
   private
 
   def order_params
-    params.require(:order).permit(:name, :postal_code, :address, :shipping_fee, :total_price, :payment_method, :other_attributes...).tap do |p|
+    params.require(:order).permit(:name, :postal_code, :address, :shipping_fee, :total_price, :payment_method, :other_attributes, :address_id...).tap do |p|
     p[:payment_method] = p[:payment_method].to_i if p[:payment_method].present?
   end
   end
