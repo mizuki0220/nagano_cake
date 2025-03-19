@@ -14,9 +14,6 @@ class Item < ApplicationRecord
   # **2. 数値のみ許可（価格）**
   validates :price, numericality: { only_integer: true, greater_than: 0 }
 
-  # **3. 文字のみ許可（商品名）**
-  validates :name, format: { with: /\A[ぁ-んァ-ン一-龥a-zA-Z]+\z/, message: "は文字のみ入力できます" }
-
   #画像が存在しない時のダミー画像表示
   def get_image
     unless image.attached?
