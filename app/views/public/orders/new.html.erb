@@ -24,7 +24,7 @@
       <div class="ml-5"><%= current_customer.first_name + current_customer.last_name  %></div>
     <%= f.radio_button :address_option, 1, checked: true, class: "ml-4 mt-3" %>登録済み住所から選択<br>
       <div class="ml-5 mt-2">
-        <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
+        <%= f.select :address_id, options_from_collection_for_select(current_customer.addresses, :id, :address_display) %>
       </div>
     <%= f.radio_button :address_option, 2, checked: true, class: "ml-4 mt-3" %>新しいお届け先<br>
     <table class="table table-borderless ml-5">

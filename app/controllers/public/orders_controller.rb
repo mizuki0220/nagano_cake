@@ -1,12 +1,12 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
-  
+
   def new
     @order = Order.new
   end
 
   def index
-    @orders = Order.all
+    @orders = current_customer.orders
   end
 
   def show
@@ -93,7 +93,7 @@ class Public::OrdersController < ApplicationController
     p[:payment_method] = p[:payment_method].to_i if p[:payment_method].present?
   end
   end
-  
+
   def authenticate_customer!
     unless current_customer
       redirect_to new_customer_session_path, alert: "ログインしてください"
