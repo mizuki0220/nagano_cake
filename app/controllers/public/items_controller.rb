@@ -8,7 +8,11 @@ class Public::ItemsController < ApplicationController
       @items = Item.all
     end
     @items_page = Item.page(params[:page])
-    @items_search = Item.search(params[:search])
+    if params[:query].present?
+      @items = Item.where("name LIKE ? OR introduction LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%").page(params[:page]).per(10)
+    else
+      @items = Item.all
+    end
   end
 
   def show

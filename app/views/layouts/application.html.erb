@@ -52,9 +52,9 @@
               <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, type: "button", class: "btn btn-outline-dark ml-3" %>
             </li>
             <li class="ml-3 mt-1" >
-              <%= form_with url: items_path, method: :get, local: true do |f| %>
-                <%= f.text_field :search %>
-                <%= f.submit 'Search', name: nil %>
+              <%= form_tag items_path, method: :get do %>
+                <%= text_field_tag :query, params[:query], placeholder: "商品名または説明を検索" %>
+                <%= submit_tag "検索" %>
               <% end %>
             </li>
           <% else %>
@@ -71,9 +71,9 @@
               <%= link_to "ログイン", new_customer_session_path, type: "button", class: "btn btn-outline-dark ml-3" %>
             </li>
             <li class="ml-3 mt-1">
-              <%= form_with url: items_path, method: :get, local: true do |f| %>
-                <%= f.text_field :search %>
-                <%= f.submit 'Search', name: nil %>
+              <%= form_tag items_path, method: :get do %>
+                <%= text_field_tag :query, params[:query], placeholder: "商品名または説明を検索" %>
+                <%= submit_tag "検索" %>
               <% end %>
             </li>
           <% end %>

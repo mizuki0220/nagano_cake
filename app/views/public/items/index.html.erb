@@ -3,11 +3,14 @@
     <%= render 'list' %>
     <div class="col-md-8 offset-md-1 mt-5 mb-5">
       <h2>
-        <% if @genre %>
-          <h2><%= @genre %>　一覧</h2>
+        <% if params[:query].present? %>
+          検索結果
+        <% elsif @genre %>
+          <%= @genre %>の一覧
         <% else %>
-          <h2>商品一覧</h2>
+          商品一覧
         <% end %>
+      </h2>
       <div class="row">
         <% @items.each do |item| %>
           <div class="col-6 col-md-4 col-lg-3 p-2">

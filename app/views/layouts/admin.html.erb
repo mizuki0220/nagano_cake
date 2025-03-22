@@ -47,9 +47,9 @@
               <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, type: "button", class: "btn btn-outline-dark ml-3" %>
             </li>
             <li class="ml-3 mt-1">
-              <%= form_with url: admin_items_path, method: :get, local: true do |f| %>
-                <%= f.text_field :search %>
-                <%= f.submit 'Search', name: nil %>
+              <%= form_tag admin_items_path, method: :get do %>
+                <%= text_field_tag :query, params[:query], placeholder: "商品名または説明を検索" %>
+                <%= submit_tag "検索" %>
               <% end %>
             </li>
 

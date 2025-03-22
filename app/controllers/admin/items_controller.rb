@@ -4,6 +4,11 @@ class Admin::ItemsController < ApplicationController
 
   def index
     @items = Item.page(params[:page])
+    if params[:query].present?
+      @items = Item.where("name LIKE ? OR introduction LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%").page(params[:page]).per(10)
+    else
+      @items = Item.all
+    end
   end
 
   def new
