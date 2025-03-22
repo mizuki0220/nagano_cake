@@ -8,10 +8,10 @@ class Order < ApplicationRecord
 
   # **2. 数値のみ許可（送料・合計金額・支払い方法）**
   validates :shipping_fee, :total_price, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :payment_method, numericality: { only_integer: true }
+  validates :payment_method, presence: true
 
   # **3. 文字のみ許可（氏名）**
-  validates :name, format: { with: /\A[ぁ-んァ-ン一-龥々ー]+\z/, message: "は文字のみ入力できます" }
+  validates :name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー\s]+\z/, message: "は文字のみ入力できます" }
 
   # **4. 郵便番号のフォーマット（7桁の数字）**
   validates :postal_code, format: { with: /\A\d{7}\z/, message: "は半角数字7桁で入力してください" }, allow_blank: true

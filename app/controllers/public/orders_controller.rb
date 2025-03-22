@@ -11,7 +11,9 @@ class Public::OrdersController < ApplicationController
 
   def show
     @cart_items = CartItem.where(customer_id: current_customer.id)
-    @order = Order.find_by(id: params[:id])
+    Rails.logger.debug "Params ID: #{params[:id]}" # ← 追加
+
+    @order = Order.find_by(id: params[:id].to_i)
 
     if @order.nil?
       Rails.logger.error "Order not found with id: #{params[:id]}"
@@ -25,37 +27,29 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
+    order_data = session[:order]
+    order_data[:payment_method] = Order.payment_methods[order_data[:payment_method]] # 修正
+    @order = Order.new(order_data)
     @order.customer_id = current_customer.id
+
     if @order.save
-      @cart_items = current_customer.cart_items
-      @cart_items.each do |cart_item|
-        OrderDetail.create!(
-          item_id: cart_item.item_id,
-          order_id: @order.id,
-          quantity: cart_item.amount,
-          price: cart_item.item.price,
-          is_active: 0
-        )
-      end
-      @cart_items.destroy_all
-      redirect_to completion_orders_path
+      redirect_to order_path(@order.id)
     else
-      flash[:danger] = "注文の処理中にエラーが発生しました"
+      Rails.logger.error "Order creation failed: #{@order.errors.full_messages}"
+      flash[:danger] = "注文の処理中にエラーが発生しました: #{@order.errors.full_messages.join(', ')}"
       redirect_back(fallback_location: confirm_orders_path)
     end
   end
 
   def confirm
-    @order = Order.new(order_params) # address_option はここで渡さない
-    @cart_items = CartItem.where(customer_id: current_customer.id)
+    @order = Order.new(order_params)
+    @cart_items = current_customer.cart_items
     @order.customer_id = current_customer.id
-    @order.shipping_fee = 800 # 固定送料
-    @order.total_price = CartItem.total_price(current_customer.cart_items) + @order.shipping_fee
+    @order.shipping_fee = 800
+    @order.total_price = CartItem.total_price(@cart_items) + @order.shipping_fee
     @order.payment_method = params[:order][:payment_method].to_i
 
     address_option = params[:order][:address_option].to_i
-
     case address_option
     when 0
       @order.postal_code = current_customer.postal_code
@@ -72,7 +66,6 @@ class Public::OrdersController < ApplicationController
         return redirect_to new_order_path
       end
     when 2
-      # すでに `order_params` で取得済み
       unless @order.valid?
         flash[:danger] = "お届け先の内容に不備があります<br>・#{@order.errors.full_messages.join('<br>・')}"
         return render :new
@@ -82,6 +75,8 @@ class Public::OrdersController < ApplicationController
       return redirect_to new_order_path
     end
 
+    # ✅ `session` に注文情報を保存
+    session[:order] = @order.attributes
     render :confirm
   end
 
